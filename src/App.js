@@ -2,8 +2,9 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 
 function App() {
-  const [location, setLocation] = useState('')
-  const [data, setData] = useState({})
+  const [location, setLocation] = useState(''); 
+  const [data, setData] = useState({}); 
+  const [isF, setIsF] = useState(true); 
 
   const handleInputChange = (event) => {
     setLocation(event.target.value)
@@ -23,6 +24,10 @@ function App() {
     }
   }
 
+  const handleClick = () => {
+    setIsF(!isF); 
+  }
+
   useEffect(() => {
     console.log("Data updated:", data);
   }, [data]);
@@ -40,7 +45,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className="search">
+      <div className="top-bar">
         <input 
           type="text"
           placeholder="Enter Location"
@@ -48,6 +53,7 @@ function App() {
           onChange={handleInputChange}
           onKeyPress={handleSearch}
         />
+        <button onClick={handleClick}>{isF ? `°F` : `°C`}</button>
       </div>
       <div className="container">
         <div className="header">
@@ -55,24 +61,32 @@ function App() {
             <p>{data.location ? data.location.name: ""}</p>
           </div>
           <div className="temperature">
-            <h1>{data.current ? data.current.temp_f.toFixed(): ""}&deg;F</h1>
+            <div>
+              {data.current ? (
+                isF ? (<h1>{data.current.temp_f.toFixed()}°F</h1>) : (<h1>{data.current.temp_c.toFixed()}°C</h1>)
+              ): ""}
+            </div>
           </div>
           <div className="description">
             <p>{data.current ? data.current.condition.text: ""}</p>
           </div>
           <div className="feels-like">
-            <p>Feels Like {data.current ? data.current.feelslike_f.toFixed(): ""}&deg;F</p>
+
+            <div>
+              <p>Feels Like {data.current ? (isF ? (`${data.current.feelslike_f.toFixed()}°F`) : (`${data.current.feelslike_c.toFixed()}°C`)): ""}</p>
+            </div>
+
           </div>
         </div>
 
 
         <div className="footer">
           <div className="wind">
-            <p>{data.current ? data.current.wind_mph.toFixed(1) : ""} MPH</p>
+          <p>{data.current ? (isF ? (`${data.current.wind_mph.toFixed(1)} MPH`) : (`${data.current.wind_kph.toFixed(1)} KPH`)): ""}</p>
             <p  className="bold">Wind Speed</p>
           </div>
           <div className="precipitation">
-            <p>{data.current ? data.current.precip_in : ""} in</p>
+          <p>{data.current ? (isF ? (`${data.current.precip_in} in`) : (`${data.current.precip_mm} mm`)): ""}</p>
             <p  className="bold">Precipitation</p>
           </div>
           <div className="humidity">

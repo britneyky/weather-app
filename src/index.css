@@ -53,7 +53,7 @@ h1 {
   top: 4%;
 }
 
-.App .search {
+.App .top-bar {
   width: 100%;
   height: auto;
   padding-top: 2rem;
@@ -68,6 +68,16 @@ h1 {
   border: none;
   background-color: rgba(255,255,255,.3);
   color: #fff;
+}
+
+button {
+  font-size: 1rem;
+  border-radius: 10px;
+  border: none;
+  padding: .5rem .7rem;
+  text-align: center;
+  background-color: rgba(255,255,255,.8);
+  margin-left: .5rem;
 }
 
 .header {
