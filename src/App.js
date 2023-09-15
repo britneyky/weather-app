@@ -56,43 +56,47 @@ function App() {
         <button onClick={handleClick}>{isF ? `°F` : `°C`}</button>
       </div>
       <div className="container">
-        <div className="header">
-          <div className="location">
-            <p>{data.location ? data.location.name: ""}</p>
-          </div>
-          <div className="temperature">
-            <div>
-              {data.current ? (
-                isF ? (<h1>{data.current.temp_f.toFixed()}°F</h1>) : (<h1>{data.current.temp_c.toFixed()}°C</h1>)
-              ): ""}
+        <div className="left-weather">
+          <div className="header">
+            <div className="location">
+              <p>{data.location ? data.location.name: ""}</p>
+            </div>
+            <div className="temperature">
+              <div>
+                {data.current ? (
+                  isF ? (<h1>{data.current.temp_f.toFixed()}°F</h1>) : (<h1>{data.current.temp_c.toFixed()}°C</h1>)
+                ): ""}
+              </div>
+            </div>
+            <div className="description">
+              <p>{data.current ? data.current.condition.text: ""}</p>
+            </div>
+            <div className="feels-like">
+
+              <div>
+                <p>Feels Like {data.current ? (isF ? (`${data.current.feelslike_f.toFixed()}°F`) : (`${data.current.feelslike_c.toFixed()}°C`)): ""}</p>
+              </div>
+
             </div>
           </div>
-          <div className="description">
-            <p>{data.current ? data.current.condition.text: ""}</p>
-          </div>
-          <div className="feels-like">
-
-            <div>
-              <p>Feels Like {data.current ? (isF ? (`${data.current.feelslike_f.toFixed()}°F`) : (`${data.current.feelslike_c.toFixed()}°C`)): ""}</p>
+          <div className="footer">
+            <div className="wind">
+            <p>{data.current ? (isF ? (`${data.current.wind_mph.toFixed(1)} MPH`) : (`${data.current.wind_kph.toFixed(1)} KPH`)): ""}</p>
+              <p  className="bold">Wind Speed</p>
             </div>
-
+            <div className="precipitation">
+            <p>{data.current ? (isF ? (`${data.current.precip_in} in`) : (`${data.current.precip_mm} mm`)): ""}</p>
+              <p  className="bold">Precipitation</p>
+            </div>
+            <div className="humidity">
+              <p>{data.current ? data.current.humidity: ""}%</p>
+              <p className="bold">Humidity</p>
+            </div>
           </div>
         </div>
-
-
-        <div className="footer">
-          <div className="wind">
-          <p>{data.current ? (isF ? (`${data.current.wind_mph.toFixed(1)} MPH`) : (`${data.current.wind_kph.toFixed(1)} KPH`)): ""}</p>
-            <p  className="bold">Wind Speed</p>
-          </div>
-          <div className="precipitation">
-          <p>{data.current ? (isF ? (`${data.current.precip_in} in`) : (`${data.current.precip_mm} mm`)): ""}</p>
-            <p  className="bold">Precipitation</p>
-          </div>
-          <div className="humidity">
-            <p>{data.current ? data.current.humidity: ""}%</p>
-            <p className="bold">Humidity</p>
-          </div>
+        <div className="right-gpt">
+          <p>
+Today's weather in Auckland features broken clouds, so you might catch glimpses of the sun. It's a comfortably cool day, perfect for layering up or wearing a light jacket. Be prepared for a brisk breeze with a touch of humidity, making it a good idea to bring along a scarf or a windbreaker if you're heading out.</p>
         </div>
       </div>
     </div>

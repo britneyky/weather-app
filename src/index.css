@@ -43,14 +43,34 @@ h1 {
 }
 
 .container {
-  width: 700px;
+  width: 100%;
   height: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-weather {
+  width: 700px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
   padding: 1rem;
   top: 4%;
+}
+
+.right-gpt {
+  display: flex;
+  width: 500px;
+  height: 100%;
+  position: relative;
+  padding: 1rem;
+  top: 8%;
+  text-align: right;
+  font-size: 1.5rem;
+  line-height: 2.3rem;
+  padding-right: 4rem;
 }
 
 .App .top-bar {
@@ -72,6 +92,7 @@ h1 {
 
 button {
   font-size: 1rem;
+  font-weight: bold;
   border-radius: 10px;
   border: none;
   padding: .5rem .7rem;
