@@ -1,13 +1,88 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap');
+
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  padding: 0
+}
+
+body {
+  font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+p {
+  font-size: 1.5rem;
+}
+
+h1 {
+  font-size: 3.5rem;
+}
+
+.App {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  background-color: rgba(0,0,0,.4);
+  color: #fff;
+  justify-content: center;
+}
+
+.App:before {
+  content: ''; 
+  background: url("./assets/bkgd-mtn.jpg") no-repeat center center/cover;
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0; 
+  z-index: -1;
+}
+
+.container {
+  width: 700px;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  padding: 1rem;
+  top: 4%;
+}
+
+.App .search {
+  width: 100%;
+  height: auto;
+  padding-top: 2rem;
+  padding-left: 4rem; 
+}
+
+.App input {
+  font-size: 1rem;
+  width: 300px;
+  padding: .5rem 1rem;
+  border-radius: 10px;
+  border: none;
+  background-color: rgba(255,255,255,.3);
+  color: #fff;
+}
+
+.header {
+  width: 100%;
+  padding-left: 3rem;
+}
+
+.footer {
+  width: 100%;
+  position: relative; 
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.bold {
+  font-weight: 700;
 }
