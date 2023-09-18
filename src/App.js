@@ -2,24 +2,50 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 
 function App() {
-  const [location, setLocation] = useState(''); 
+  const [location, setLocation] = useState('Holland'); 
   const [data, setData] = useState({}); 
   const [isF, setIsF] = useState(true); 
+  const [GPTDescription, setGPTDescription] = useState(''); 
+
+  const fetchData = () => {
+    const url = 'http://localhost:3001/get-weather'
+    axios.get(url, {
+      params: {
+        location: location, 
+      },
+    }).then((response) => {
+      setData(response.data);
+      fetchGPTDescription(response.data); 
+    }).catch((error) => {
+      console.error("Error: fetchData: ", error)
+    })
+  }
+
+  const fetchGPTDescription = (weatherData) => {
+    if (weatherData && weatherData.current) {
+      axios.post("http://localhost:3001/openai-description", {
+        city: location, 
+        temp: isF? weatherData.current.temp_f.toFixed() : weatherData.current.temp_c.toFixed(), 
+        unit: isF? "F" : "C", 
+        description: weatherData.current.condition.text, 
+      }).then((response) => {
+        setGPTDescription(response.data.GPTDescription); 
+      }).catch((error) => {
+        console.error("Error: ", error); 
+      }); 
+  } else {
+    console.error("Data or data.current is undefined")
+  }
+  }
 
   const handleInputChange = (event) => {
     setLocation(event.target.value)
-  }
+  } 
 
   const handleSearch = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault(); 
-      const url = `https://api.weatherapi.com/v1/current.json?key=844583823f1340f9b8402038231409&q=${location}`;
-      axios.get(url)
-      .then((response) => {
-        setData(response.data);
-      }).catch((error) => {
-        console.error("Error: ", error);
-      })
+      fetchData(location); 
       setLocation(''); 
     }
   }
@@ -29,19 +55,9 @@ function App() {
   }
 
   useEffect(() => {
-    console.log("Data updated:", data);
-  }, [data]);
-
-  useEffect(() => {
-    const initialUrl = `https://api.weatherapi.com/v1/current.json?key=844583823f1340f9b8402038231409&q=Holland`;
-    axios.get(initialUrl)
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((error) => {
-        console.error("Error: ", error);
-      });
+    fetchData(); 
   }, []);
+
 
   return (
     <div className="App">
@@ -95,8 +111,7 @@ function App() {
           </div>
         </div>
         <div className="right-gpt">
-          <p>
-Today's weather in Auckland features broken clouds, so you might catch glimpses of the sun. It's a comfortably cool day, perfect for layering up or wearing a light jacket. Be prepared for a brisk breeze with a touch of humidity, making it a good idea to bring along a scarf or a windbreaker if you're heading out.</p>
+        <p> {GPTDescription}</p> 
         </div>
       </div>
     </div>
